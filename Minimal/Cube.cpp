@@ -62,6 +62,10 @@ Cube::~Cube()
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
 }
+void Cube::moveCube(glm::vec3 dir)
+{
+	toWorld = glm::translate(glm::mat4(1.0f), dir) * toWorld;
+}
 void Cube::loadTextures(const char * fileName)
 {
 	glGenTextures(1, &textureID);
@@ -159,7 +163,7 @@ void Cube::factorSphereCollision(glm::vec3 pos, float radius, glm::vec3 & veloci
 }
 void Cube::update()
 {
-	spin(1.0f);
+	//spin(1.0f);
 }
 
 void Cube::spin(float deg)

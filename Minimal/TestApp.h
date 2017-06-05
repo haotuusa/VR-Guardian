@@ -4,6 +4,7 @@
 #include "Cube.h"
 #include "vector"
 
+
 class TestApp : public RiftApp
 {
 public:

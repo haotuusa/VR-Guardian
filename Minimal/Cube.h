@@ -20,6 +20,7 @@ public:
 	void setToWorld(glm::mat4 toWorld);
 	void draw(GLuint shaderProgram, glm::mat4 projection, glm::mat4 modelView);
 	void update();
+	void moveCube(glm::vec3 dir);
 	void spin(float);
 	void scaleBoundaries();
 	void factorSphereCollision(glm::vec3 pos, float radius, glm::vec3 & velocity);
