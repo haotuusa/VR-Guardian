@@ -8,7 +8,7 @@ class Model
 {
 public:
 	/*  Functions   */
-	Model(GLchar* path);
+	Model(GLchar* path, string directory);
 	void draw(GLuint shaderProgram, glm::mat4 projection, glm::mat4 modelView);
 	void setToWorld(glm::mat4 toWorld);
 	void spin(float deg, glm::vec3 axis);
@@ -22,7 +22,7 @@ private:
 	void processNode(aiNode* node, const aiScene* scene);
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 	vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
-
+	unsigned int textureFromFile(const char *path, const string &directory);
 	~Model();
 };
 

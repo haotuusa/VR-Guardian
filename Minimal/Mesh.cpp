@@ -1,4 +1,5 @@
 #include "Mesh.h"
+#include <sstream>  
 #include <glm/gtc/matrix_transform.hpp>
 
 Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> textures, glm::vec3 color)
@@ -27,6 +28,7 @@ void Mesh::setupMesh()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint),
 		&this->indices[0], GL_STATIC_DRAW);
 
+
 	// Vertex Positions
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
@@ -42,7 +44,28 @@ void Mesh::setupMesh()
 
 	glBindVertexArray(0);
 }
+void Mesh::setupTexturesForDraw()
+{
+	unsigned int diffuseNr = 1;
+	unsigned int specularNr = 1;
+	for (unsigned int i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
+										  // retrieve texture number (the N in diffuse_textureN)
+		stringstream ss;
+		string number;
+		string name = textures[i].type;
+		if (name == "texture_diffuse")
+			ss << diffuseNr++; // transfer unsigned int to stream
+		else if (name == "texture_specular")
+			ss << specularNr++; // transfer unsigned int to stream
+		number = ss.str();
 
+		//shader.setFloat(("material." + name + number).c_str(), i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+	}
+	glActiveTexture(GL_TEXTURE0);
+}
 void Mesh::draw(GLint shaderProgram, glm::mat4 projection, glm::mat4 modelView)
 {	
 	uProjection = glGetUniformLocation(shaderProgram, "projection");
@@ -54,7 +77,12 @@ void Mesh::draw(GLint shaderProgram, glm::mat4 projection, glm::mat4 modelView)
 	glUniformMatrix4fv(uModelView, 1, GL_FALSE, &(modelView[0][0]));
 	glUniform3f(uColor, color.x, color.y, color.z);
 
-	// Now draw the cube. We simply need to bind the VAO associated with it.
+	//First prepare the textures 
+	//setupTexturesForDraw();
+	if(textures.size() > 0)
+		glBindTexture(GL_TEXTURE_2D, textures[0].id);
+
+	// Now draw the mesh 
 	glBindVertexArray(VAO);
 
 	// Tell OpenGL to draw with triangles, using 36 indices, the type of the indices, and the offset to start from

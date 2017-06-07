@@ -95,6 +95,8 @@
     <None Include="frustum_shader.vert" />
     <None Include="testScene_shader.vert" />
     <None Include="testScene_shader.frag" />
+    <None Include="testModel_shader.vert" />
+    <None Include="testModel_shader.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RiftManagerApp.h">

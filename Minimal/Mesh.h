@@ -27,10 +27,11 @@ public:
 	glm::mat4 toWorld;
 	Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> textures, glm::vec3 color);
 	void draw(GLint shaderProgram, glm::mat4 projection, glm::mat4 modelView);
+	void setupTexturesForDraw();
 	~Mesh();
 private:
 	/*  Render data  */
-	GLuint VAO, VBO, EBO;
+	GLuint VAO, VBO, EBO, TBO;
 	GLuint uProjection, uModelView, uColor;
 	glm::vec3 color;
 	/*  Functions    */
