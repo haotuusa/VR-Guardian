@@ -8,7 +8,7 @@ class Model
 {
 public:
 	/*  Functions   */
-	Model(GLchar* path, string directory);
+	Model(GLchar* path);
 	void draw(GLuint shaderProgram, glm::mat4 projection, glm::mat4 modelView);
 	void setToWorld(glm::mat4 toWorld);
 	void spin(float deg, glm::vec3 axis);

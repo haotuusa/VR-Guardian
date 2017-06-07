@@ -134,10 +134,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="airMolecule.cpp" />
+    <ClCompile Include="BodyScene.cpp" />
     <ClCompile Include="CaveSimulatorApp.cpp" />
     <ClCompile Include="Co2.cpp" />
     <ClCompile Include="ColorCubeScene.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="ExampleApp.cpp" />
     <ClCompile Include="FactoryScene.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Geode.cpp" />
@@ -174,10 +176,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="airMolecule.h" />
+    <ClInclude Include="BodyScene.h" />
     <ClInclude Include="CaveSimulatorApp.h" />
     <ClInclude Include="Co2.h" />
     <ClInclude Include="ColorCubeScene.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="ExampleApp.h" />
     <ClInclude Include="FactoryScene.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="Geode.h" />

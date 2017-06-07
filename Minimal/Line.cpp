@@ -5,16 +5,18 @@
 
 Line::Line(glm::vec3 start)
 {
-	vertices.resize(2);
 	this->start = start;
+	this->end = this->start + glm::vec3(0.0f, 0.0f, -100000.0f);
+	vertices.push_back(this->start);
+	vertices.push_back(this->end);
 //	vertices.push_back(this->start + glm::vec3(1.0f, -1.0f, 0.0f));
 	this->dir = glm::normalize(end - start);
 	color = glm::vec3(0.0f, 1.0f, 0.0f);
-	toWorld = glm::mat4(1.0f);	
+	toWorld = glm::mat4(1.0f);
+	loadLineVertices();
 }
 void Line::loadLineVertices()
 {
-	//cout << " Loading the vertices " << endl;
 	// Create array object and buffers. Remember to delete your buffers when the object is destroyed!
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -45,18 +47,6 @@ void Line::loadLineVertices()
 	glBindVertexArray(0);
 
 }
-void Line::setColor(glm::vec3 color)
-{
-	this->color = color;
-}
-void Line::setEndPoints(glm::vec3 start, glm::vec3 end)
-{
-	vertices[0] = start + glm::vec3(0.0f, 0.0f, -0.01f);
-	vertices[1] = end;	
-
-	//vertices[0] = glm::vec3(0.0f, 0.0f, 1.0f);
-	//vertices[1] = glm::vec3(0.0f, 4.0f, -1.0f);
-}
 void Line::setToWorld(glm::mat4 toWorld)
 {
 	this->toWorld = toWorld;
@@ -65,8 +55,7 @@ void Line::setToWorld(glm::mat4 toWorld)
 
 void Line::draw(GLuint shaderProgram, glm::mat4 projection, glm::mat4 modelView)
 {
-	/*cout << " The start  " << vertices[0].x << " " << vertices[0].y << " " << vertices[0].z << endl;
-	cout << " The end  " << vertices[1].x << " " << vertices[1].y << " " << vertices[1].z << endl;*/
+	cout << " drawing line "<< endl;
 	modelView = modelView * toWorld;
 	uProjection = glGetUniformLocation(shaderProgram, "projection");
 	uModelView = glGetUniformLocation(shaderProgram, "modelview");

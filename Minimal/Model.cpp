@@ -8,10 +8,9 @@
 using namespace std;
 #include <Windows.h>
 
-Model::Model(GLchar* path, string directory)
+Model::Model(GLchar* path)
 {
 	this->loadModel(path);
-	this->directory = directory;
 }
 void Model::setToWorld(glm::mat4 toWorld)
 {

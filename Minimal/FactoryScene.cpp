@@ -4,8 +4,7 @@
 
 FactoryScene::FactoryScene()
 {
-	string factoryDir = "../ModelAssets/factory1/";
-	factoryModel = new Model("../ModelAssets/factory1/factory1.obj", factoryDir);
+	factoryModel = new Model("../ModelAssets/factory1/factory1.obj");
 	toWorld = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -35.0f));
 	toWorld = toWorld * glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
@@ -14,10 +13,8 @@ FactoryScene::FactoryScene()
 
 	factoryModel->setToWorld(toWorld);
 	
-	string o2Dir = "../ModelAssets/o2/";
-	o2Model = new Model("../ModelAssets/o2/o2.obj", o2Dir);
-	string cO2Dir = "../ModelAssets/co2/";
-	cO2Model = new Model("../ModelAssets/co2/co2.obj", cO2Dir);
+	o2Model = new Model("../ModelAssets/o2/o2.obj");
+	cO2Model = new Model("../ModelAssets/co2/co2.obj");
 
 	genSphere = new Sphere(1.0f, true);
 
