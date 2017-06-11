@@ -7,16 +7,15 @@
 using namespace std;
 using namespace irrklang;
 
-#define TEST_SCENE_VERTEX_SHADER_PATH "./testScene_shader.vert"
-#define TEST_SCENE_FRAGMENT_SHADER_PATH "./testScene_shader.frag"
+#define DEF_SCENE_VERTEX_SHADER_PATH "./defScene_shader.vert"
+#define DEF_SCENE_FRAGMENT_SHADER_PATH "./defScene_shader.frag"
 
-#define TEST_MODEL_VERTEX_SHADER_PATH "./testModel_shader.vert"
-#define TEST_MODEL_FRAGMENT_SHADER_PATH "./testModel_shader.frag"
+#define MODEL_VERTEX_SHADER_PATH "./model_shader.vert"
+#define MODEL_FRAGMENT_SHADER_PATH "./model_shader.frag"
 
 #define SKYBOX_VERTEX_SHADER_PATH "./skyBox_shader.vert"
 #define SKYBOX_FRAGMENT_SHADER_PATH "./skyBox_shader.frag"
 
-#define TOILET_MODEL_PATH "../ModelAssets/toilet/toilet.obj"
 
 
 /*Flags for button presses*/
@@ -36,30 +35,22 @@ void FinalProjectScene::initGl()
 	glEnable(GL_DEPTH_TEST);
 	ovr_RecenterTrackingOrigin(_session);
 
-	defSceneShaderProgram = LoadShaders(TEST_SCENE_VERTEX_SHADER_PATH, TEST_SCENE_FRAGMENT_SHADER_PATH);
-	modelShaderProgram = LoadShaders(TEST_MODEL_VERTEX_SHADER_PATH, TEST_MODEL_FRAGMENT_SHADER_PATH);
+	defSceneShaderProgram = LoadShaders(DEF_SCENE_VERTEX_SHADER_PATH, DEF_SCENE_FRAGMENT_SHADER_PATH);
+	modelShaderProgram = LoadShaders(MODEL_VERTEX_SHADER_PATH, MODEL_FRAGMENT_SHADER_PATH);
 	skyBoxShaderProgram = LoadShaders(SKYBOX_VERTEX_SHADER_PATH, SKYBOX_FRAGMENT_SHADER_PATH);
 
 	/* Initialize the sharedCube */
 	sharedCube = new Cube(true);
 	sharedCube->color = glm::vec3(1.0f, 0.0f, 0.0f);
 
-	/* Init the ocean*/
+	/* Init the ocean  and islands */
 	ocean = new Model("../ModelAssets/static_models/ocean/ocean.obj");
-	//ocean->setToWorld(glm::scale(glm::mat4(1.0f), glm::vec3(10.0f, 1.0f, 10.0f)));
-	island = new Model("../ModelAssets/static_models/island/island.obj");	
-	//island->setToWorld(glm::scale(glm::mat4(1.0f), glm::vec3(10.0f, 1.0f, 10.0f)));*/
+	island = new Model("../ModelAssets/static_models/island/island.obj");
+
 
 	initGlassBuildings(); 
 	initWoodenBuildings();
 	initSkyScrapers();
-
-	/* The skyscraper */
-	/*skyScraper1 = new Model("../ModelAssets/scene_models/buildingsky1.obj");
-	skyScraper2 = new Model("../ModelAssets/scene_models/buildingsky2.obj");
-	skyScraper3 = new Model("../ModelAssets/scene_models/buildingsky3.obj");
-	skyScraper4 = new Model("../ModelAssets/scene_models/buildingsky4.obj");
-	skyScraper5 = new Model("../ModelAssets/scene_models/buildingsky5.obj");*/
 
 	/* For the skybox */
 	backGroundFaces.resize(6);
@@ -246,18 +237,9 @@ void FinalProjectScene::renderScene(const glm::mat4 & projection, const glm::mat
 	ocean->draw(modelShaderProgram, projection, glm::inverse(headPose));
 
 	island->draw(modelShaderProgram, projection, glm::inverse(headPose));
-
-	/*woodBuilding1->draw(modelShaderProgram, projection, glm::inverse(headPose));
-	woodBuilding2->draw(modelShaderProgram, projection, glm::inverse(headPose));
-	woodBuilding3->draw(modelShaderProgram, projection, glm::inverse(headPose));
-	woodBuilding4->draw(modelShaderProgram, projection, glm::inverse(headPose));
-	woodBuilding5->draw(modelShaderProgram, projection, glm::inverse(headPose));
-
-	skyScraper1->draw(modelShaderProgram, projection, glm::inverse(headPose));*/
 }
 void FinalProjectScene::updateControllersAction()
 {
-
 	//get ovr exact system time
 	double displayMidpointSeconds = ovr_GetPredictedDisplayTime(_session, 0);
 
@@ -274,23 +256,6 @@ void FinalProjectScene::updateControllersAction()
 		glm::mat4 trans;
 
 		bool leftPress = true;
-		/*
-		if (inputState.Thumbstick[ovrHand_Left].y < -0.500f)
-		{
-			if(leftHandTriggerPressed){
-				trans = glm::translate(glm::mat4(1.0f), (1.0f * forward) * 0.5f);
-			}
-		}
-		else if (inputState.Thumbstick[ovrHand_Left].y > 0.500f)
-		{
-			if(leftHandTriggerPressed){
-				trans = glm::translate(glm::mat4(1.0f), (-1.0f * forward) * 0.5f);
-			}
-		}
-		else {
-			leftPress = false;
-		}
-		*/
 
 		if (inputState.HandTrigger[ovrHand_Left] > 0.5f)
 		{
@@ -319,23 +284,19 @@ void FinalProjectScene::updateControllersAction()
 				glm::vec3 rightPos = glm::vec3(trans * glm::vec4(ovr::toGlm(rendEyePoses[1].Position), 1.0f));
 				rendEyePoses[0].Position = ovr::fromGlm(leftPos);
 				rendEyePoses[1].Position = ovr::fromGlm(rightPos);
-			}
-			
+			}			
 		}
 		else
 		{
 			ovr_SetControllerVibration(_session, ovrControllerType_LTouch, 0.0f, 0.0f);
 			leftHandTriggerPressed = false;
-			leftPress = false;
-			
+			leftPress = false;			
 		}
-
 	}
 	else
 	{
 		cout << " The session has failed " << endl;
 	}
-
 }
 FinalProjectScene::~FinalProjectScene()
 {

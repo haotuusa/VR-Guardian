@@ -14,7 +14,7 @@ RiftApp::RiftApp()
 	ovr::for_each_eye([&](ovrEyeType eye) {
 		ovrEyeRenderDesc& erd = _eyeRenderDescs[eye] = ovr_GetRenderDesc(_session, eye, _hmdDesc.DefaultEyeFov[eye]);
 		ovrMatrix4f ovrPerspectiveProjection =
-			ovrMatrix4f_Projection(erd.Fov, 0.01f, 1000.0f, ovrProjection_ClipRangeOpenGL);
+			ovrMatrix4f_Projection(erd.Fov, 0.01f, 2000.0f, ovrProjection_ClipRangeOpenGL);
 		_eyeProjections[eye] = ovr::toGlm(ovrPerspectiveProjection);
 		_viewScaleDesc.HmdToEyeOffset[eye] = erd.HmdToEyeOffset;
 

@@ -81,10 +81,10 @@
     <None Include="skyBox_shader.frag" />
     <None Include="frustum_shader.frag" />
     <None Include="frustum_shader.vert" />
-    <None Include="testScene_shader.vert" />
-    <None Include="testScene_shader.frag" />
-    <None Include="testModel_shader.vert" />
-    <None Include="testModel_shader.frag" />
+    <None Include="defScene_shader.frag" />
+    <None Include="defScene_shader.vert" />
+    <None Include="model_shader.frag" />
+    <None Include="model_shader.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RiftManagerApp.h">

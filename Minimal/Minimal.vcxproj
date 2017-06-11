@@ -159,10 +159,10 @@
     <None Include="cubeScene_shader.frag" />
     <None Include="cubeScene_shader.vert" />
     <None Include="skyBox_shader.frag" />
-    <None Include="testModel_shader.frag" />
-    <None Include="testModel_shader.vert" />
-    <None Include="testScene_shader.frag" />
-    <None Include="testScene_shader.vert" />
+    <None Include="model_shader.frag" />
+    <None Include="model_shader.vert" />
+    <None Include="defScene_shader.frag" />
+    <None Include="defScene_shader.vert" />
     <None Include="vr_shader.frag" />
     <None Include="vr_shader.vert" />
     <None Include="vr_test_pattern.ppm" />
