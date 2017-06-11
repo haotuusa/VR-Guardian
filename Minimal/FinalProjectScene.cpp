@@ -20,7 +20,7 @@ using namespace irrklang;
 
 
 /*Flags for button presses*/
-bool xPressed = false;
+bool leftHandTriggerPressed = false;
 ISoundEngine * soundEngine = createIrrKlangDevice();
 //rpc::client c1("localhost", 8080);
 
@@ -264,6 +264,8 @@ void FinalProjectScene::updateControllersAction()
 	//get current ovrState, contains info such as head position, hand positions
 	ovrTrackingState ts = ovr_GetTrackingState(_session, displayMidpointSeconds, ovrTrue);
 	ovrPosef newOrigin = ts.HeadPose.ThePose;
+	glm::vec3 handLPos = ovr::toGlm(ts.HandPoses[ovrHand_Left].ThePose.Position);
+	static glm::vec3 handOrigin(0.0f, 0.0f, 0.0f);
 
 	//cout << " In here at least " << endl;
 	ovrInputState inputState;
@@ -272,42 +274,62 @@ void FinalProjectScene::updateControllersAction()
 		glm::mat4 trans;
 
 		bool leftPress = true;
-
+		/*
 		if (inputState.Thumbstick[ovrHand_Left].y < -0.500f)
 		{
-			trans = glm::translate(glm::mat4(1.0f), (-1.0f * forward) * 0.05f);
+			if(leftHandTriggerPressed){
+				trans = glm::translate(glm::mat4(1.0f), (1.0f * forward) * 0.5f);
+			}
 		}
 		else if (inputState.Thumbstick[ovrHand_Left].y > 0.500f)
 		{
-			trans = glm::translate(glm::mat4(1.0f), forward * 0.05f);
+			if(leftHandTriggerPressed){
+				trans = glm::translate(glm::mat4(1.0f), (-1.0f * forward) * 0.5f);
+			}
 		}
 		else {
 			leftPress = false;
 		}
-		if (inputState.Buttons == ovrTouch_X)
+		*/
+
+		if (inputState.HandTrigger[ovrHand_Left] > 0.5f)
 		{
-			if (!xPressed)
+			if (!leftHandTriggerPressed)
 			{
-				xPressed = true;
+				ovr_SetControllerVibration(_session, ovrControllerType_LTouch, 0.0f, 1.0f);
+				leftHandTriggerPressed = true;
 				float oldY = forward.y;
-				forward = glm::normalize(ovr::toGlm(rendEyePoses[0].Orientation) * glm::vec4(forward, 1.0f));
+				glm::mat4 rotation = glm::toMat4(ovr::toGlm(rendEyePoses[0].Orientation));
+				forward = glm::normalize(rotation[2]);
+				//forward = glm::normalize(ovr::toGlm(rendEyePoses[0].Orientation) * glm::vec4(0.0f, 0.0f, -1.0, 0.0));
 				forward.y = oldY;
+				//glm::vec3 whatever = glm::normalize(glm::vec3(0,0,0));
+				
+				handOrigin = handLPos;
 			}
 			else
 			{
-				xPressed = false;
+				ovr_SetControllerVibration(_session, ovrControllerType_LTouch, 0.0f, 0.0f);
+				
+				glm::vec3 direction = handLPos - handOrigin; 
+				direction.y = 0.0f;
+				trans = glm::translate(glm::mat4(1.0f), direction * 2.0f);
+
+				glm::vec3 leftPos = glm::vec3(trans * glm::vec4(ovr::toGlm(rendEyePoses[0].Position), 1.0f));
+				glm::vec3 rightPos = glm::vec3(trans * glm::vec4(ovr::toGlm(rendEyePoses[1].Position), 1.0f));
+				rendEyePoses[0].Position = ovr::fromGlm(leftPos);
+				rendEyePoses[1].Position = ovr::fromGlm(rightPos);
 			}
+			
 		}
 		else
 		{
-			xPressed = false;
+			ovr_SetControllerVibration(_session, ovrControllerType_LTouch, 0.0f, 0.0f);
+			leftHandTriggerPressed = false;
+			leftPress = false;
+			
 		}
-		if (leftPress) {
-			glm::vec3 leftPos = glm::vec3(trans * glm::vec4(ovr::toGlm(rendEyePoses[0].Position), 1.0f));
-			glm::vec3 rightPos = glm::vec3(trans * glm::vec4(ovr::toGlm(rendEyePoses[1].Position), 1.0f));
-			rendEyePoses[0].Position = ovr::fromGlm(leftPos);
-			rendEyePoses[1].Position = ovr::fromGlm(rightPos);
-		}
+
 	}
 	else
 	{
