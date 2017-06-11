@@ -1,0 +1,15 @@
+newmtl world1:lambert12SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd skyscrap.jpg
+Ni 1.00
+newmtl world1:phong1SG
+illum 4
+Kd 0.00 0.03 0.15
+Ka 0.06 0.06 0.06
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.78 0.78 0.78
+Ns 45.47

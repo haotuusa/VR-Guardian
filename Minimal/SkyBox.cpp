@@ -7,7 +7,7 @@ using namespace std;
 SkyBox::SkyBox(vector <const GLchar *> faces)
 {
 	this->faces = faces;
-	toWorld = glm::mat4(1.0f) * glm::scale(glm::mat4(1.0f), glm::vec3(40.0f, 40.0f, 40.0f));
+	toWorld = glm::mat4(1.0f) * glm::scale(glm::mat4(1.0f), glm::vec3(100.0f, 100.0f, 100.0f));
 	skyBoxTexId = loadCubeMap(faces);
 	loadCubeVertices(skyBoxVertices);
 }

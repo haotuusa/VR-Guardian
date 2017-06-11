@@ -1,0 +1,29 @@
+newmtl initialShadingGroup
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl world1:building1ma:lambert3SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.22 0.22 0.22
+Tf 1.00 1.00 1.00
+map_Kd building1.jpg
+Ni 1.00
+newmtl world1:building1ma:phong1SG
+illum 4
+Kd 0.11 0.31 0.47
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 18.00
+newmtl world1:building1ma:phong3SG
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 18.00

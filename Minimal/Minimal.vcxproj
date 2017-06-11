@@ -88,13 +88,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\stb-master;$(SolutionDir)\Include\LibOVR;$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories);$(SolutionDir)\rpclib\include;$(SolutionDir)\rpclib\dependencies\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\irrKlang-64bit-1.5.0\include;$(SolutionDir)\stb-master;$(SolutionDir)\Include\LibOVR;$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories);$(SolutionDir)\rpclib\include;$(SolutionDir)\rpclib\dependencies\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PreprocessorDefinitions>CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>LibOVR.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;rpc.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(SolutionDir)\rpclib\build\output\lib\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>irrKlang.lib;LibOVR.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;rpc.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\\irrKlang-64bit-1.5.0\lib\Winx64-visualStudio;$(SolutionDir)\lib;$(SolutionDir)\rpclib\build\output\lib\Release</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,42 +121,36 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\stb-master;$(SolutionDir)\Include\LibOVR;$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories);$(SolutionDir)\rpclib\include;$(SolutionDir)\rpclib\dependencies\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\irrKlang-64bit-1.5.0\include;$(SolutionDir)\stb-master;$(SolutionDir)\Include\LibOVR;$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories);$(SolutionDir)\rpclib\include;$(SolutionDir)\rpclib\dependencies\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>LibOVR.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;rpc.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(SolutionDir)\rpclib\build\output\lib\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>irrKlang.lib;LibOVR.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;rpc.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\\irrKlang-64bit-1.5.0\lib\Winx64-visualStudio;$(SolutionDir)\lib;$(SolutionDir)\rpclib\build\output\lib\Release</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="airMolecule.cpp" />
     <ClCompile Include="BodyScene.cpp" />
-    <ClCompile Include="CaveSimulatorApp.cpp" />
-    <ClCompile Include="Co2.cpp" />
+    <ClCompile Include="Building.cpp" />
+    <ClCompile Include="CollidableObject.cpp" />
     <ClCompile Include="ColorCubeScene.cpp" />
     <ClCompile Include="Cube.cpp" />
-    <ClCompile Include="ExampleApp.cpp" />
-    <ClCompile Include="FactoryScene.cpp" />
-    <ClCompile Include="Frustum.cpp" />
+    <ClCompile Include="FinalProjectScene.cpp" />
     <ClCompile Include="Geode.cpp" />
     <ClCompile Include="GlfwApp.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="O2.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="RiftApp.cpp" />
     <ClCompile Include="RiftManagerApp.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Sphere.cpp" />
-    <ClCompile Include="TestApp.cpp" />
-    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="frustum_shader.frag" />
@@ -175,30 +169,24 @@
     <None Include="skyBox_shader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="airMolecule.h" />
     <ClInclude Include="BodyScene.h" />
-    <ClInclude Include="CaveSimulatorApp.h" />
-    <ClInclude Include="Co2.h" />
+    <ClInclude Include="Building.h" />
+    <ClInclude Include="CollidableObject.h" />
     <ClInclude Include="ColorCubeScene.h" />
     <ClInclude Include="Cube.h" />
-    <ClInclude Include="ExampleApp.h" />
-    <ClInclude Include="FactoryScene.h" />
-    <ClInclude Include="Frustum.h" />
+    <ClInclude Include="FinalProjectScene.h" />
     <ClInclude Include="Geode.h" />
     <ClInclude Include="GlfwApp.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="O2.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="RiftApp.h" />
     <ClInclude Include="RiftManagerApp.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Sphere.h" />
-    <ClInclude Include="TestApp.h" />
-    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

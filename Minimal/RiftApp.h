@@ -104,7 +104,7 @@ class RiftApp : public GlfwApp, public RiftManagerApp
 		GLuint _fbo{ 0 };
 
 		int vpPosX, vpPosY, vpSizeW, vpSizeH;
-
+		ovrPosef rendEyePoses[2];
 	private:
 	GLuint _depthBuffer{ 0 };
 
@@ -144,6 +144,7 @@ class RiftApp : public GlfwApp, public RiftManagerApp
 		int dispIndex;
 		int trackIndex;
 		bool renderingLeft;
+		bool renderedFirst;
 		ovrVector3f defLeftEyeOffset, defRightEyeOffset;
 };
 

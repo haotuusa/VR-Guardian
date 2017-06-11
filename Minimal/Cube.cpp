@@ -6,7 +6,7 @@ using namespace std;
 Cube::Cube(bool wired)
 {
 	this->wired = wired;
-	toWorld = glm::mat4(1.0f);
+	initToWorld = toWorld = glm::mat4(1.0f);
 	color = glm::vec3(1.0f, 0.0f, 0.0f);
 	// Create array object and buffers. Remember to delete your buffers when the object is destroyed!
 	glGenVertexArrays(1, &VAO);
@@ -62,6 +62,7 @@ Cube::~Cube()
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
 }
+
 void Cube::moveCube(glm::vec3 dir)
 {
 	toWorld = glm::translate(glm::mat4(1.0f), dir) * toWorld;
@@ -91,8 +92,6 @@ void Cube::loadTextures(const char * fileName)
 void Cube::setToWorld(glm::mat4 toWorld)
 {
 	this->toWorld = toWorld;
-	this->toWorld = this->toWorld * glm::scale(glm::mat4(1.0f), scaleVal);
-	//cout << " The cube scale is " << toWorld[0][0] << endl;
 	scaleBoundaries();
 }
 

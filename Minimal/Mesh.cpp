@@ -1,4 +1,5 @@
 #include "Mesh.h"
+#include <iostream>
 #include <sstream>  
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -79,6 +80,7 @@ void Mesh::draw(GLint shaderProgram, glm::mat4 projection, glm::mat4 modelView)
 
 	//First prepare the textures 
 	//setupTexturesForDraw();
+	//cout << " The amount of textures is " << textures.size() << endl;
 	if(textures.size() > 0)
 		glBindTexture(GL_TEXTURE_2D, textures[0].id);
 

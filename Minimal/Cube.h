@@ -19,6 +19,7 @@ public:
 	~Cube();
 	void setToWorld(glm::mat4 toWorld);
 	void draw(GLuint shaderProgram, glm::mat4 projection, glm::mat4 modelView);
+	void initToWorldOffset(glm::mat4 initToWorld);
 	void update();
 	void moveCube(glm::vec3 dir);
 	void spin(float);
@@ -27,6 +28,8 @@ public:
 	float xMax, xMin, yMax, yMin, zMax, zMin;
 	glm::vec3 color;
 	void loadTextures(const char * fileName);
+private:
+	glm::mat4 initToWorld;
 
 };
 

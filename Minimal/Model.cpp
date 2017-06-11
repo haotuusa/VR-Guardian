@@ -16,6 +16,10 @@ void Model::setToWorld(glm::mat4 toWorld)
 {
 	this->toWorld = toWorld;
 }
+glm::mat4 Model::getToWorld()
+{
+	return toWorld;
+}
 void Model::draw(GLuint shaderProgram, glm::mat4 projection, glm::mat4 modelView)
 {
 	for (GLuint i = 0; i < this->meshes.size(); i++)
@@ -29,9 +33,9 @@ void Model::loadModel(string path)
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		cout << "ERROR::ASSIMP::" << import.GetErrorString() << endl;
-		char buff[100];
+	/*	char buff[100];
 		sprintf_s(buff, "ERROR::ASSIMP:: %s \n", import.GetErrorString());
-		OutputDebugStringA(buff);
+		OutputDebugStringA(buff); */
 		return;
 	}
 	this->directory = path.substr(0, path.find_last_of('/'));

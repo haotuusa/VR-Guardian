@@ -3,6 +3,7 @@
 #include "Shaders.h"
 #include "Cube.h"
 #include "vector"
+#include "SkyBox.h"
 #include <array>
 #include <rpc/client.h>
 #include "Model.h"
@@ -38,6 +39,10 @@ private:
 	bool loadedShaders;
 	GLint testSceneShaderProgram;	
 	GLint testModelShaderProgram;
-
+	GLint skyBoxShaderProgram;
+	SkyBox * backGround;
+	glm::vec3 forward;
+	bool xPressed;
+	vector <const GLchar *> backGroundFaces;
 };
 

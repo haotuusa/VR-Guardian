@@ -89,6 +89,8 @@ void RiftApp::initGl() {
 		FAIL("Could not create mirror texture");
 	}
 	glGenFramebuffers(1, &_mirrorFbo);
+
+	renderedFirst = false;
 }
 void RiftApp::onKey(int key, int scancode, int action, int mods) {
 	if (GLFW_PRESS == action) switch (key) {
@@ -101,8 +103,32 @@ void RiftApp::onKey(int key, int scancode, int action, int mods) {
 }
 void RiftApp::draw()
 {
+	
 	ovrPosef eyePoses[2];
 	ovr_GetEyePoses(_session, frame, true, _viewScaleDesc.HmdToEyeOffset, eyePoses, &_sceneLayer.SensorSampleTime);
+	
+	
+	if (!renderedFirst)
+	{
+		rendEyePoses[0] = eyePoses[0];
+		rendEyePoses[1] = eyePoses[1];
+		
+
+		/* Offset to go on top of the city */
+		glm::vec3 headPos = (ovr::toGlm(eyePoses[0].Position) + ovr::toGlm(eyePoses[1].Position)) / 2.0f;
+		glm::mat4 trans = glm::translate(glm::mat4(1.0f), glm::vec3(20.0f, 10.0f, 40.0f) - headPos);
+		
+		glm::vec3 leftPos = glm::vec3(trans * glm::vec4(ovr::toGlm(rendEyePoses[0].Position), 1.0f));
+		glm::vec3 rightPos = glm::vec3(trans * glm::vec4(ovr::toGlm(rendEyePoses[1].Position), 1.0f));
+		rendEyePoses[0].Position = ovr::fromGlm(leftPos);
+		rendEyePoses[1].Position = ovr::fromGlm(rightPos);
+		
+		renderedFirst = true;
+	}
+	
+	/* Always tracking the orientation */
+	rendEyePoses[0].Orientation = eyePoses[0].Orientation;
+	rendEyePoses[1].Orientation = eyePoses[1].Orientation;	
 
 	int curIndex;
 	ovr_GetTextureSwapChainCurrentIndex(_session, _eyeTexture, &curIndex);
@@ -116,7 +142,7 @@ void RiftApp::draw()
 		glViewport(vp.Pos.x, vp.Pos.y, vp.Size.w, vp.Size.h);
 		vpPosX = vp.Pos.x; vpPosY = vp.Pos.y; vpSizeW = vp.Size.w; vpSizeH = vp.Size.h;
 
-		_sceneLayer.RenderPose[eye] = eyePoses[eye];
+		_sceneLayer.RenderPose[eye] = rendEyePoses[eye];
 		if (eye == ovrEye_Left)
 		{
 			renderingLeft = true;
@@ -125,7 +151,7 @@ void RiftApp::draw()
 		{
 			renderingLeft = false;
 		}
-		renderScene(_eyeProjections[eye], ovr::toGlm(eyePoses[eye]));
+		renderScene(_eyeProjections[eye], ovr::toGlm(rendEyePoses[eye]));
 	});
 	glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, 0, 0);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
